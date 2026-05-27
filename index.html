@@ -47,6 +47,77 @@
         --white: #ffffff;
         --wa-green: #25d366;
       }
+
+       /* Popup Background */
+    .popup{
+      position:fixed;
+      top:50px;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.7);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      z-index:999;
+      visibility:hidden;
+      opacity:0;
+      transition:0.3s;
+      padding:15px;
+      /* border: 2px solid #0f7cdc; */
+    }
+
+    .popup.show{
+      visibility:visible;
+      opacity:1;
+    }
+
+    /* Popup Box */
+    .popup-content{
+      position:relative;
+      width:90%;
+      max-width:500px;
+      animation:zoom 0.3s ease;
+    }
+
+    .popup-content img{
+      width:100%;
+      border-radius:12px;
+      display:block;
+       border: 1px solid #0f7cdc;
+    
+    }
+
+    /* Close Button */
+    .close{
+      position:absolute;
+      top:-12px;
+      right:-12px;
+      width:35px;
+      height:35px;
+      border:none;
+      border-radius:50%;
+      background:#0284db;
+      color:white;
+      font-size:20px;
+      cursor:pointer;
+    }
+
+    @keyframes zoom{
+      from{
+        transform:scale(0.7);
+      }
+      to{
+        transform:scale(1);
+      }
+    }
+
+    /* Responsive */
+    @media(max-width:600px){
+      .popup-content{
+        max-width:95%;
+      }
+    }
       * {
         margin: 0;
         padding: 0;
@@ -1980,6 +2051,15 @@
     </style>
   </head>
   <body>
+
+    <div class="popup" id="popup">
+    <div class="popup-content">
+      <button class="close" id="closeBtn">&times;</button>
+
+      <!-- Your Image -->
+      <img src="coming soon poster.png" alt="Popup Image">
+    </div>
+  </div>
     <!-- CART OVERLAY & DRAWER -->
     <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
     <div class="cart-drawer" id="cart-drawer">
@@ -3958,6 +4038,35 @@
           nav.style.boxShadow =
             window.scrollY > 30 ? "0 4px 30px rgba(0,0,0,0.4)" : "none";
       });
+
+
+      const popup = document.getElementById("popup");
+    const closeBtn = document.getElementById("closeBtn");
+
+    // Show popup after 3 seconds
+    window.onload = () => {
+      setTimeout(() => {
+        popup.classList.add("show");
+      }, 3000);
+    };
+
+    // Close popup
+    closeBtn.onclick = () => {
+      popup.classList.remove("show");
+    };
+
+    // Close when clicking outside image
+    popup.onclick = (e) => {
+      if(e.target === popup){
+        popup.classList.remove("show");
+      }
+    };
     </script>
   </body>
 </html>
+
+
+
+
+
+
